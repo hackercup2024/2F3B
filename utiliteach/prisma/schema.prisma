@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -17,8 +18,7 @@ model User {
   middleName String?
   lastName   String
   Suffix     String?
-  password   String
-  userType   String
+  userType   String    @default("teacher")
   Section    Section[]
 }
 
@@ -30,9 +30,9 @@ model Student {
   Suffix     String?
   gradeLevel Int
   lrn        String
+  sectionId  Int?
   Attendance Attendance[]
   Section    Section?     @relation(fields: [sectionId], references: [id])
-  sectionId  Int?
 }
 
 model StudentSection {
@@ -44,41 +44,46 @@ model StudentSection {
 model Section {
   id          Int       @id @default(autoincrement())
   sectionName String
+  teacherId   String
+  subjectId   Int
+  Subject     Subject   @relation(fields: [subjectId], references: [id])
+  teacher     User      @relation(fields: [teacherId], references: [id])
   session     Session[]
   students    Student[]
-  teacher     User      @relation(fields: [teacherId], references: [id])
-  teacherId   String
 }
 
 model Subject {
-  id         Int    @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   gradeLevel Int
+  Section    Section[]
 }
 
 model Session {
   id         Int          @id @default(autoincrement())
-  section    Section      @relation(fields: [sectionId], references: [id])
   sectionId  Int
   date       DateTime
+  isFinished Boolean      @default(false)
   Attendance Attendance[]
   Question   Question[]
+  section    Section      @relation(fields: [sectionId], references: [id])
 }
 
 model Attendance {
   id        Int     @id @default(autoincrement())
-  session   Session @relation(fields: [sessionId], references: [id])
   sessionId Int
-  student   Student @relation(fields: [studentId], references: [id])
   studentId Int
   isLate    Boolean @default(false)
+  points    Int     @default(0)
+  session   Session @relation(fields: [sessionId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id])
 }
 
 model Question {
   id        Int     @id @default(autoincrement())
-  session   Session @relation(fields: [sessionId], references: [id])
   sessionId Int
   question  String
+  session   Session @relation(fields: [sessionId], references: [id])
 }
 
 model Term {
