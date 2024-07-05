@@ -5,30 +5,11 @@ import { PrismaClient } from '@prisma/client'
 
 export const dynamic = 'force-dynamic' // defaults to auto
 
-const studentQuestions: string[] = [
-    "What are we learning today?",
-    "Can you explain that again?",
-    "When is this assignment due?",
-    "Will this be on the test?",
-    "Can I go to the bathroom?",
-    "How do I solve this problem?",
-    "What did I miss when I was absent?",
-    "Can I have extra credit?",
-    "How is this going to help us in real life?",
-    "Can you help me with my homework?",
-    "What grade did I get on the test?",
-    "Can you extend the deadline?",
-    "Is there any homework tonight?",
-    "Can I sit with my friend?",
-    "What time does class end?",
-    "Can I borrow a pencil?",
-    "Will there be a quiz tomorrow?",
-    "Can you repeat that, please?",
-    "How many pages does the essay need to be?",
-    "Is it okay if I turn this in late?"
-];
+/*
+fetch api/qna/${sessionId} to get normalized questions from db
 
-
+return questions lessened, empty array if no questions found with the sessionId
+*/
 
 // Function to remove duplicates and similar questions
 export async function GET(req: NextApiRequest, { params }: { params: { id: string } }) {
@@ -52,7 +33,7 @@ export async function GET(req: NextApiRequest, { params }: { params: { id: strin
 
     //check if questions is empty
     if (questions.length === 0) {
-        return Response.json({ questions: "No questions found" });
+        return Response.json({ questions: [] });
     }
     
     // convert list of string into one string
