@@ -16,3 +16,7 @@ export const createSubject = async ({
     },
   });
 };
+
+export const getSubjects = async () => {
+  return db.subject.findMany();
+};
