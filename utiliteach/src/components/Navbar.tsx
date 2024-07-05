@@ -16,7 +16,11 @@ const Navbar = async () => {
       <MaxWidthWrapper>
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
           <Link href="/" className="z-40 flex font-semibold">
-            case<span className="text-green-600">cobra</span>
+            <img 
+              className="h-1/3 w-auto object-scale-down items-start"
+              src="/icon_title.svg"
+              alt="logo title"
+            />
           </Link>
 
           <div className="flex h-full items-center space-x-4">
@@ -32,26 +36,28 @@ const Navbar = async () => {
                   Sign out
                 </Link>
                 {isAdmin ? (
-                  <Link
-                    href="/dashboard"
-                    className={buttonVariants({
-                      size: "sm",
-                      variant: "ghost",
-                    })}
-                  >
-                    Dashboard ✨
-                  </Link>
+                  <>
+                    <Link
+                      href="/dashboard"
+                      className={buttonVariants({
+                        size: "sm",
+                        variant: "ghost",
+                      })}
+                    >
+                      Dashboard ✨
+                    </Link>
+                    <Link
+                      href="/configure/upload"
+                      className={buttonVariants({
+                        size: "sm",
+                        className: "hidden items-centert5 gap-1 sm:flex",
+                      })}
+                    >
+                      Start Class
+                      <ArrowRightIcon className="ml-1.5 h-5 w-5" />
+                    </Link>
+                  </>                 
                 ) : null}
-                <Link
-                  href="/configure/upload"
-                  className={buttonVariants({
-                    size: "sm",
-                    className: "hidden items-center gap-1 sm:flex",
-                  })}
-                >
-                  Create case
-                  <ArrowRightIcon className="ml-1.5 h-5 w-5" />
-                </Link>
               </>
             ) : (
               <>
@@ -72,19 +78,6 @@ const Navbar = async () => {
                   })}
                 >
                   Login
-                </Link>
-
-                <div className="hidden h-8 w-px bg-zinc-200 sm:block" />
-
-                <Link
-                  href="/configure/upload"
-                  className={buttonVariants({
-                    size: "sm",
-                    className: "hidden items-center gap-1 sm:flex",
-                  })}
-                >
-                  Create case
-                  <ArrowRightIcon className="ml-1.5 h-5 w-5" />
                 </Link>
               </>
             )}
