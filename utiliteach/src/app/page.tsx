@@ -28,7 +28,7 @@ export default function Home() {
                   tracking-tight text-gray-900 md:text-6xl lg:text-7xl"
               >
                 Your all in one <span> </span>
-                <span className="bg-lapis px-2 text-white">utility kit</span> for teaching.
+                <span className="px-2 text-lapis">utility kit</span> for teaching.
               </h1>
               <p
                 className="mt-8 max-w-prose text-balance text-center text-lg md:text-wrap lg:pr-10
@@ -70,8 +70,9 @@ export default function Home() {
                   placeholder="Enter your QnA Code here!"
                   value={qnaCode}
                   onChange={(e) => setqnaCode(e.target.value)}
-                  className="md:h-12"
+                  className="md:h-12 mb-5"
                 />
+
                 <Button type="submit">Enter Code</Button>
               </form>              
             </div>
