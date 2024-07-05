@@ -8,96 +8,74 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum OrderStatus {
-  fulfilled
-  shipped
-  awaiting_shipment
-}
-
-enum PhoneModel {
-  iphonex
-  iphone11
-  iphone12
-  iphone13
-  iphone14
-  iphone15
-}
-
-enum CaseMaterial {
-  silicone
-  polycarbonate
-}
-
-enum CaseColor {
-  black
-  blue
-  rose
-}
-
-enum CaseFinish {
-  smooth
-  textured
-}
-
-model Configuration {
-  id              String        @id @default(cuid())
-  width           Int
-  height          Int
-  imageUrl        String
-  color           CaseColor?
-  model           PhoneModel?
-  material        CaseMaterial?
-  finish          CaseFinish?
-  croppedImageUrl String?
-  Order           Order[]
-}
-
 model User {
-  id        String   @id @default(cuid())
-  email     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Order     Order[]
+  id         Int       @id @default(autoincrement())
+  firstName  String
+  middleName String?
+  lastName   String
+  Suffix     String?
+  email      String
+  password   String
+  userType   String
+  createdAt  DateTime
+  Section    Section[]
 }
 
-model Order {
-  id                String           @id @default(cuid())
-  configurationId   String
-  configuration     Configuration    @relation(fields: [configurationId], references: [id])
-  user              User             @relation(fields: [userId], references: [id])
-  userId            String
-  amount            Float
-  isPaid            Boolean          @default(false)
-  status            OrderStatus      @default(awaiting_shipment)
-  shippingAddress   ShippingAddress? @relation(fields: [shippingAddressId], references: [id])
-  shippingAddressId String?
-  billingAddress    BillingAddress?  @relation(fields: [billingAddressId], references: [id])
-  billingAddressId  String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Section {
+  id          Int       @id @default(autoincrement())
+  sectionName String
+  Session     Session[]
+  Student     Student?  @relation(fields: [studentId], references: [id])
+  studentId   Int?
+  teacher     User      @relation(fields: [teacherId], references: [id])
+  teacherId   Int
 }
 
-model ShippingAddress {
-  id          String  @id @default(cuid())
-  name        String
-  street      String
-  city        String
-  postalCode  String
-  country     String
-  state       String?
-  phoneNumber String?
-  orders      Order[]
+model Subject {
+  id         Int    @id @default(autoincrement())
+  name       String
+  gradeLevel Int
 }
 
-model BillingAddress {
-  id          String  @id @default(cuid())
-  name        String
-  street      String
-  city        String
-  postalCode  String
-  country     String
-  state       String?
-  phoneNumber String?
-  orders      Order[]
+model Session {
+  id         Int          @id @default(autoincrement())
+  section    Section      @relation(fields: [sectionId], references: [id])
+  sectionId  Int
+  date       DateTime
+  Attendance Attendance[]
+  Question   Question[]
+}
+
+model Attendance {
+  id        Int     @id @default(autoincrement())
+  session   Session @relation(fields: [sessionId], references: [id])
+  sessionId Int
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  isLate    Boolean @default(false)
+}
+
+model Student {
+  id         Int          @id @default(autoincrement())
+  firstName  String
+  middleName String?
+  lastName   String
+  Suffix     String?
+  gradeLevel Int
+  lrn        String
+  sections   Section[]
+  Attendance Attendance[]
+}
+
+model Question {
+  id        Int     @id @default(autoincrement())
+  session   Session @relation(fields: [sessionId], references: [id])
+  sessionId Int
+  question  String
+}
+
+model Term {
+  id        Int      @id @default(autoincrement())
+  termStart DateTime
+  termEnd   DateTime
 }
