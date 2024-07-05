@@ -37,7 +37,7 @@ const Page = () => {
 
   return (
     <div>
-      <h1>Subject Management</h1>
+      <h1>Section Management</h1>
       <CreateSection />
       <Table>
         <TableCaption>A list of sections.</TableCaption>
@@ -48,12 +48,12 @@ const Page = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {/* {sections?.map((section: Section) => (
+          {sections?.map((section: Section) => (
             <TableRow key={section.id}>
               <TableCell>{section.sectionName}</TableCell>
               <TableCell>{section.teacherId}</TableCell>
             </TableRow>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </div>

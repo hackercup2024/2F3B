@@ -30,8 +30,6 @@ model Student {
   gradeLevel Int
   lrn        String
   Attendance Attendance[]
-  Section    Section?     @relation(fields: [sectionId], references: [id])
-  sectionId  Int?
 }
 
 model StudentSection {
@@ -44,7 +42,6 @@ model Section {
   id          Int       @id @default(autoincrement())
   sectionName String
   session     Session[]
-  students    Student[]
   teacher     User      @relation(fields: [teacherId], references: [id])
   teacherId   String
   subject     Subject   @relation(fields: [subjectId], references: [id])
@@ -65,6 +62,7 @@ model Session {
   date       DateTime
   Attendance Attendance[]
   Question   Question[]
+  isFinished Boolean      @default(false)
 }
 
 model Attendance {
@@ -74,6 +72,7 @@ model Attendance {
   student   Student @relation(fields: [studentId], references: [id])
   studentId Int
   isLate    Boolean @default(false)
+  points    Int     @default(0)
 }
 
 model Question {
