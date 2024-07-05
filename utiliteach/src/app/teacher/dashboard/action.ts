@@ -72,32 +72,31 @@ export const startSession = async ({
 }
 
 export const checkSession = async () => {
-  console.log("yey");
-  
   const { getUser } = getKindeServerSession();
   const teacher = await getUser();
   const teacherId = teacher?.id
-  console.log(teacherId);
 
   if (teacherId === undefined) return false;
-  console.log("ay");
+
+  const session = await db.session.findMany({
+    select: {
+      id: true,
+      date: true,
+      section: true,
+    },
+  });
 
   const section = await db.section.findFirst({
     where: {
       teacherId
-    },
-    select: {
-      id: true,
-      sectionName: true,
-      session: {
-        select: {
-          id: true,
-          date: true,  // Include any other fields you need from the session
-        },
-      },
-    },
-  });
-  
-  console.log(section);
+    }
+  })
+
+  const isSectionInSessions = session.some(session => session.section.id === section?.id);
+
+  console.log(session)
+  console.log(section)
+
+  console.log(isSectionInSessions);
   
 }
