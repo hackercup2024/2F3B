@@ -3,7 +3,7 @@
 import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const getQuestions = async () => {
+export const getQuestions = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const session = await db.session.findFirst({
@@ -21,4 +21,13 @@ const getQuestions = async () => {
   });
 };
 
-export default getQuestions;
+export const getSummary = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  const session = await db.session.findFirst({
+    where: {
+      teacherId: user?.id,
+    },
+  });
+  return await fetch(`/api/qna/${session?.id}`);
+};

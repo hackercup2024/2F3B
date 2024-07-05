@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import getQuestions from "./actions";
 import {
   Table,
   TableBody,
@@ -10,8 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getQuestions, getSummary } from "./actions";
 
-const Question = ({ params }: { params: { sessionId: number } }) => {
+const Question = () => {
   const [questions, setQuestions] = useState<any>([]);
   const [summary, setSummary] = useState("");
   useEffect(() => {
@@ -19,7 +19,7 @@ const Question = ({ params }: { params: { sessionId: number } }) => {
       const result = await getQuestions();
       setQuestions(result);
 
-      const summary_result = await fetch(`/api/qna/${params.sessionId}`);
+      const summary_result = await getSummary();
       const summary = await summary_result.json();
       setSummary(summary);
     }
