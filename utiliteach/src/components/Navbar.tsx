@@ -17,24 +17,15 @@ const Navbar = async () => {
         <div className="flex h-14 items-center justify-between border-b border-zinc-200">
           <Link href="/" className="z-40 flex font-semibold">
             <img 
-              className="h-1/3 w-auto object-scale-down items-start"
+              className="max-h-56 object-scale-down"
               src="/icon_title.svg"
               alt="logo title"
             />
           </Link>
 
-          <div className="flex h-full items-center space-x-4">
+          <div className="flex h-full items-center space-x-2">
             {user ? (
               <>
-                <Link
-                  href="/api/auth/logout"
-                  className={buttonVariants({
-                    size: "sm",
-                    variant: "ghost",
-                  })}
-                >
-                  Sign out
-                </Link>
                 {isAdmin ? (
                   <>
                     <Link
@@ -44,13 +35,22 @@ const Navbar = async () => {
                         variant: "ghost",
                       })}
                     >
-                      Dashboard ✨
+                      Dashboard 
+                    </Link>
+                    <Link
+                      href="/api/auth/logout"
+                      className={buttonVariants({
+                        size: "sm",
+                        variant: "ghost",
+                      })}
+                    >
+                      Sign out
                     </Link>
                     <Link
                       href="/configure/upload"
                       className={buttonVariants({
                         size: "sm",
-                        className: "hidden items-centert5 gap-1 sm:flex",
+                        className: "hidden items-centert5 sm:flex",
                       })}
                     >
                       Start Class
