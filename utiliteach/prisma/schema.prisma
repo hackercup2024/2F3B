@@ -65,6 +65,7 @@ model Session {
   date       DateTime
   Attendance Attendance[]
   Question   Question[]
+  isFinished Boolean      @default(false)
 }
 
 model Attendance {
@@ -74,6 +75,7 @@ model Attendance {
   student   Student @relation(fields: [studentId], references: [id])
   studentId Int
   isLate    Boolean @default(false)
+  points    Int     @default(0)
 }
 
 model Question {
