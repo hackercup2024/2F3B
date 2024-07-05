@@ -10,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Loading } from "@/components/Loading";
 import CreateSubject from "./CreateSubject";
 import { getSubjects } from "./action";
 import { Subject } from "@prisma/client";
@@ -27,7 +28,7 @@ const Page = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (isError) {
@@ -35,13 +36,13 @@ const Page = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="flex flex-grow flex-col items-center p-4">
       <div className="flex justify-center sm:justify-start">
-        <h1 className="text-lapis font-bold text-2xl mb-4">Subject Management</h1>
+        <h1 className="text-lapis font-bold text-3xl mb-4">Subject Management</h1>
       </div>
       <CreateSubject />
-      <div className="flex flex-col items-center">
-        <Table className="sm:w-1/2">
+      <div className="w-full md:w-3/4">
+        <Table>
           <TableCaption>A list of your subjects.</TableCaption>
           <TableHeader>
             <TableRow>
