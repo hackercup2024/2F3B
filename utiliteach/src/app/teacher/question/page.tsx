@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getQuestions, getSummary } from "./actions";
+import { getQuestions } from "./actions";
 
 const Question = () => {
   const [questions, setQuestions] = useState<any>([]);
@@ -21,7 +21,7 @@ const Question = () => {
       
       setQuestions(result);
 
-      const summary_result = await getSummary();
+      const summary_result = await fetch('/api/qna');
       const summary = await summary_result.json();
       setSummary(summary.questions);
     }
