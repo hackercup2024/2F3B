@@ -73,8 +73,8 @@ model Attendance {
   studentId Int
   isLate    Boolean @default(false)
   points    Int     @default(0)
-  Student   Student @relation(fields: [studentId], references: [id])
   Session   Session @relation(fields: [sessionId], references: [id])
+  Student   Student @relation(fields: [studentId], references: [id])
 }
 
 model Question {

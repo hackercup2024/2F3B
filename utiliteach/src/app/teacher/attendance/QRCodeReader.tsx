@@ -6,9 +6,10 @@ import { useEffect, useRef, useState } from "react";
 
 // Qr Scanner
 import QrScanner from "qr-scanner";
+import addAttendance from "./action";
 // import QrFrame from "../assets/qr-frame.svg";
 
-const QrReader = () => {
+const QrReader = ({ sessionId }: { sessionId: number }) => {
   // QR States
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
@@ -16,7 +17,7 @@ const QrReader = () => {
   const [qrOn, setQrOn] = useState<boolean>(true);
 
   // Result
-  const [scannedResult, setScannedResult] = useState<string | undefined>("");
+  const [scannedResult, setScannedResult] = useState<string>("");
 
   // Success
   const onScanSuccess = (result: QrScanner.ScanResult) => {
@@ -25,6 +26,7 @@ const QrReader = () => {
     // ✅ Handle success.
     // 😎 You can do whatever you want with the scanned result.
     setScannedResult(result?.data);
+    addAttendance({ sessionId, studentId: parseInt(scannedResult) });
   };
 
   // Fail
@@ -45,7 +47,7 @@ const QrReader = () => {
         // 🔥 This will produce a yellow (default color) outline around the qr code that we scan, showing a proof that our qr-scanner is scanning that qr code.
         highlightCodeOutline: true,
         // 📦 A custom div which will pair with "highlightScanRegion" option above 👆. This gives us full control over our scan region.
-        overlay: qrBoxEl?.current || undefined,
+        verlay: qrBoxEl?.current || undefined,
       });
 
       // 🚀 Start QR Scanner
