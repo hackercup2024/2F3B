@@ -27,7 +27,7 @@ const CreateSubject = () => {
     <div>
       <form className="flex flex-col sm:space-x-12 sm:flex-row" onSubmit={handleSubmit}>
         <div className="mb-4">
-          <p className="text">Subject Name</p>
+          <p className="ml-1">Subject Name</p>
           <Input
             type="text"
             placeholder="Subject Name"
@@ -36,7 +36,7 @@ const CreateSubject = () => {
           />
         </div>
         <div className="mb-4">
-          <p>Grade Level</p>
+          <p className="ml-1">Grade Level</p>
           <Input
             type="number"
             placeholder="Grade Level"

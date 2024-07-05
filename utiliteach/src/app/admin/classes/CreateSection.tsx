@@ -58,30 +58,41 @@ const CreateSection = () => {
   };
   return (    
     <div>      
-      <form onSubmit={handleSubmit}>        
-        <Input          
-          type="text"          
-          placeholder="Section Name"          
-          value={sectionName}          
-          onChange={(e) => setSectionName(e.target.value)}        
-        />
-        <Select defaultValue={teacherId} onChange={(e) => setTeacherId(e.target.value)}>
-          {teachers?.map((teacher) => (
-            <option key={teacher.id} value={teacher.id}>
-              {teacher.firstName} {teacher.lastName} {teacher.id}
-            </option>
-          ))}
-        </Select>
-
-        <Select defaultValue={subjectId} onChange={(e) => setSubjectId(parseInt(e.target.value))}>
-          {subjects?.map((subject) => (
-            <option key={subject.id} value={subject.id}>
-              {subject.name} {subject.id}
-            </option>
-          ))}
-        </Select>
-             
-        <Button type="submit">Create Section</Button>      
+      <form onSubmit={handleSubmit}>     
+        <div>
+          <p className="ml-1">Section Name</p>
+          <Input          
+            type="text"          
+            placeholder="Section Name"          
+            value={sectionName}          
+            onChange={(e) => setSectionName(e.target.value)}        
+          />
+        </div>
+        <div className="flex flex-col mt-2.5">
+            <p className="ml-1">Assigned Teacher</p>
+            <Select className="h-8" defaultValue={teacherId} onChange={(e) => setTeacherId(e.target.value)}>
+              {teachers?.map((teacher) => (
+                <option key={teacher.id} value={teacher.id}>
+                  {teacher.firstName} {teacher.lastName}
+                </option>
+              ))}
+            </Select>
+          </div>
+        <div className="flex flex-row mt-3 justify-between">
+          <div className="flex flex-col">
+            <p className="ml-1">Assigned Subject</p>
+            <Select className="h-8" defaultValue={subjectId} onChange={(e) => setSubjectId(parseInt(e.target.value))}>
+              {subjects?.map((subject) => (
+                <option key={subject.id} value={subject.id}>
+                  {subject.name} {subject.id}
+                </option>
+              ))}
+            </Select>
+          </div>
+          <div className="flex mt-4 items-center justify-center">
+            <Button type="submit">Create Section</Button>      
+          </div>
+        </div>            
       </form>    
     </div>    
   );    
