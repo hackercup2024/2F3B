@@ -11,6 +11,25 @@ import { useState } from "react";
 
 export default function Home() {
   const [qnaCode, setqnaCode] = useState("");
+  const [question, setQuestion] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch(`/api/qna/${qnaCode}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Response data:", data);
+    } else {
+      console.error("Error:", response.statusText);
+    }
+  };
   return (
     <div className="bg-slate-50">
       <section>
@@ -24,17 +43,19 @@ export default function Home() {
                 lg:text-left"
             >
               <h1
-                className="relative w-fit text-balance text-5xl font-bold !leading-tight
-                  tracking-tight text-gray-900 md:text-6xl lg:text-7xl"
+                className="relative w-fit text-balance text-5xl font-bold !leading-tight tracking-tight
+                  text-gray-900 md:text-6xl lg:text-7xl"
               >
                 Your all in one <span> </span>
-                <span className="px-2 text-lapis">utility kit</span> for teaching.
+                <span className="px-2 text-lapis">utility kit</span> for
+                teaching.
               </h1>
               <p
                 className="mt-8 max-w-prose text-balance text-center text-lg md:text-wrap lg:pr-10
                   lg:text-left"
               >
-                The tool towards <span className="font-semibold">quality education</span>.
+                The tool towards{" "}
+                <span className="font-semibold">quality education</span>.
               </p>
               <ul className="mt-8 flex flex-col items-center space-y-2 text-left font-medium sm:items-start">
                 <div className="space-y-2">
@@ -44,7 +65,7 @@ export default function Home() {
                   </li>
                   <li className="flex items-center gap-1.5 text-left">
                     <Check className="h-5 w-5 shrink-0 text-lapis" />
-                    Randomize recitation 
+                    Randomize recitation
                   </li>
                   <li className="flex items-center gap-1.5 text-left">
                     <Check className="h-5 w-5 shrink-0 text-lapis" />
@@ -60,11 +81,14 @@ export default function Home() {
               lg:col-span-1 lg:mx-0"
           >
             <div>
-              <p className='text-3xl mb-5 lg:pr-10 max-w-prose text-center lg:text-left text-balance md:text-wrap'>
-                Are you a 
-                <span className='text-lapis font-semibold'> student</span>?
+              <p
+                className="text-3xl mb-5 lg:pr-10 max-w-prose text-center lg:text-left text-balance
+                  md:text-wrap"
+              >
+                Are you a
+                <span className="text-lapis font-semibold"> student</span>?
               </p>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <Input
                   type="text"
                   placeholder="Enter your QnA Code here!"
@@ -72,13 +96,18 @@ export default function Home() {
                   onChange={(e) => setqnaCode(e.target.value)}
                   className="md:h-12 mb-5"
                 />
+                <Input
+                  type="text"
+                  placeholder="Enter your question here!"
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  className="md:h-12 mb-5"
+                />
 
                 <Button type="submit">Enter Code</Button>
-              </form>              
+              </form>
             </div>
           </div>
-
-
         </MaxWidthWrapper>
       </section>
     </div>

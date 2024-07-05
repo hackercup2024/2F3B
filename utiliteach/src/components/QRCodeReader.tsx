@@ -45,7 +45,7 @@ const QrReader = () => {
         // 🔥 This will produce a yellow (default color) outline around the qr code that we scan, showing a proof that our qr-scanner is scanning that qr code.
         highlightCodeOutline: true,
         // 📦 A custom div which will pair with "highlightScanRegion" option above 👆. This gives us full control over our scan region.
-        overlay: qrBoxEl?.current || undefined,
+        verlay: qrBoxEl?.current || undefined,
       });
 
       // 🚀 Start QR Scanner
