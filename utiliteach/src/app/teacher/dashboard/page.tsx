@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react"
-import { getAttendanceTally, getSectionBySubject, getSubjects, startSession } from "./action";
+import { checkSession, getAttendanceTally, getSectionBySubject, getSubjects, startSession } from "./action";
 import {
   Table,
   TableBody,
@@ -46,6 +46,16 @@ const Dashboard = () => {
   ];
 
   useEffect(() => {
+    const checkSessionExisting = async () => {
+
+      await checkSession()
+        .then(
+          data => {
+            if (data) window.location.replace('/teacher/attendance');
+          }
+        )
+    }
+
     const fetchSubjects = async () => {
       setSubjectLoading(true);
       await getSubjects()
@@ -57,6 +67,7 @@ const Dashboard = () => {
         )
     }
 
+    checkSessionExisting();
     fetchSubjects();
   }, []);
 
@@ -93,6 +104,7 @@ const Dashboard = () => {
       .then(
         data => {
           console.log(data);
+          window.location.replace('/teacher/attendance');
         }
       )
   }

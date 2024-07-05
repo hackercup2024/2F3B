@@ -1,6 +1,7 @@
 "use server";
 
 import { db } from "@/db";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export const getAttendanceTally = async ({
   sectionId
@@ -68,4 +69,35 @@ export const startSession = async ({
       date: new Date(Date.now())
     }
   });
+}
+
+export const checkSession = async () => {
+  console.log("yey");
+  
+  const { getUser } = getKindeServerSession();
+  const teacher = await getUser();
+  const teacherId = teacher?.id
+  console.log(teacherId);
+
+  if (teacherId === undefined) return false;
+  console.log("ay");
+
+  const section = await db.section.findFirst({
+    where: {
+      teacherId
+    },
+    select: {
+      id: true,
+      sectionName: true,
+      session: {
+        select: {
+          id: true,
+          date: true,  // Include any other fields you need from the session
+        },
+      },
+    },
+  });
+  
+  console.log(section);
+  
 }
