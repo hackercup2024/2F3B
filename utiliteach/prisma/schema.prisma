@@ -20,6 +20,7 @@ model User {
   Suffix     String?
   userType   String    @default("teacher")
   Section    Section[]
+  Session    Session[]
 }
 
 model Student {
@@ -65,6 +66,8 @@ model Session {
   Attendance Attendance[]
   Question   Question[]
   Section    Section      @relation(fields: [sectionId], references: [id])
+  teacherId  String
+  teacher    User         @relation(fields: [teacherId], references: [id])
 }
 
 model Attendance {
