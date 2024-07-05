@@ -1,5 +1,5 @@
 # Commit Conventions
 
-feat -> ✨
-fix -> 🔨
-chore -> 🧹
+- feat -> ✨
+- fix -> 🔨
+- chore -> 🧹
