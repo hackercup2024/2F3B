@@ -9,32 +9,53 @@ datasource db {
 }
 
 model User {
-  id         Int       @id @default(autoincrement())
+  id         String    @id @default(cuid())
+  email      String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   firstName  String
   middleName String?
   lastName   String
   Suffix     String?
-  email      String
-  password   String
-  userType   String
-  createdAt  DateTime
+  userType   String    @default("teacher")
   Section    Section[]
+}
+
+model Student {
+  id         Int          @id @default(autoincrement())
+  firstName  String
+  middleName String?
+  lastName   String
+  Suffix     String?
+  gradeLevel Int
+  lrn        String
+  Attendance Attendance[]
+  Section    Section?     @relation(fields: [sectionId], references: [id])
+  sectionId  Int?
+}
+
+model StudentSection {
+  id        Int @id @default(autoincrement())
+  studentId Int
+  sectionId Int
 }
 
 model Section {
   id          Int       @id @default(autoincrement())
   sectionName String
-  Session     Session[]
-  Student     Student?  @relation(fields: [studentId], references: [id])
-  studentId   Int?
+  session     Session[]
+  students    Student[]
   teacher     User      @relation(fields: [teacherId], references: [id])
-  teacherId   Int
+  teacherId   String
+  subject     Subject   @relation(fields: [subjectId], references: [id])
+  subjectId   Int
 }
 
 model Subject {
-  id         Int    @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   gradeLevel Int
+  Section    Section[]
 }
 
 model Session {
@@ -53,18 +74,6 @@ model Attendance {
   student   Student @relation(fields: [studentId], references: [id])
   studentId Int
   isLate    Boolean @default(false)
-}
-
-model Student {
-  id         Int          @id @default(autoincrement())
-  firstName  String
-  middleName String?
-  lastName   String
-  Suffix     String?
-  gradeLevel Int
-  lrn        String
-  sections   Section[]
-  Attendance Attendance[]
 }
 
 model Question {
