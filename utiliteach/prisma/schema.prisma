@@ -48,10 +48,6 @@ model Section {
   Subject     Subject   @relation(fields: [subjectId], references: [id])
   teacher     User      @relation(fields: [teacherId], references: [id])
   session     Session[]
-  teacher     User      @relation(fields: [teacherId], references: [id])
-  teacherId   String
-  subject     Subject   @relation(fields: [subjectId], references: [id])
-  subjectId   Int
 }
 
 model Subject {
@@ -68,7 +64,7 @@ model Session {
   isFinished Boolean      @default(false)
   Attendance Attendance[]
   Question   Question[]
-  isFinished Boolean      @default(false)
+  Section    Section      @relation(fields: [sectionId], references: [id])
 }
 
 model Attendance {
@@ -77,6 +73,8 @@ model Attendance {
   studentId Int
   isLate    Boolean @default(false)
   points    Int     @default(0)
+  Student   Student @relation(fields: [studentId], references: [id])
+  Session   Session @relation(fields: [sessionId], references: [id])
 }
 
 model Question {
