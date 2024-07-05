@@ -10,18 +10,15 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react"
-import { getAttendanceTally, getSectionBySubject, getSubjects } from "./action";
+import { getAttendanceTally, getSectionBySubject, getSubjects, startSession } from "./action";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Tab } from "@headlessui/react";
 import { Section, Subject } from "@prisma/client";
 
 const Dashboard = () => {
@@ -88,9 +85,17 @@ const Dashboard = () => {
 
     if (selectedSection === -1) return;
     fetchAttendanceTally();
-    console.log(attendanceTally);
 
   }, [selectedSection]);
+
+  const onStartClick = async () => {
+    await startSession({ sectionId: selectedSection })
+      .then(
+        data => {
+          console.log(data);
+        }
+      )
+  }
 
   return (
     <div className="flex flex-grow flex-col items-center p-4 gap-3">
@@ -120,7 +125,7 @@ const Dashboard = () => {
             }
           </SelectContent>
         </Select>
-        <Button className="w-full" disabled={selectedSection === -1}>Start Class</Button>
+        <Button className="w-full" type="submit" onClick={() => onStartClick()} disabled={selectedSection === -1}>Start Class</Button>
       </div>
       <div className="w-full md:w-3/4">
         <Table>

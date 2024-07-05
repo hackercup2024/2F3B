@@ -56,3 +56,16 @@ export const getSectionBySubject = async ({
   }) => {
   return await db.section.findMany({ where: { subjectId } });
 }
+
+export const startSession = async ({
+  sectionId
+}: {
+    sectionId: number
+  }) => {
+  return await db.session.create({
+    data: {
+      sectionId: sectionId,
+      date: new Date(Date.now())
+    }
+  });
+}
