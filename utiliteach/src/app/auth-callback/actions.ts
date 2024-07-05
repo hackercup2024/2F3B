@@ -18,6 +18,8 @@ export const getAuthStatus = async () => {
       data: {
         id: user.id,
         email: user.email,
+        firstName: user.given_name!,
+        lastName: user.family_name!,
       },
     });
   }

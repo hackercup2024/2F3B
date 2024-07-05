@@ -17,8 +17,7 @@ model User {
   middleName String?
   lastName   String
   Suffix     String?
-  password   String
-  userType   String
+  userType   String    @default("teacher")
   Section    Section[]
 }
 
