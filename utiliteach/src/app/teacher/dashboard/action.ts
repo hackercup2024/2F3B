@@ -9,13 +9,24 @@ export const getAttendanceTally = async ({
   }) => {
   const result = await db.student.findMany({
     where: {
-      sectionId: sectionId,
+      Attendance: {
+        some: {
+          session: {
+            sectionId: sectionId,
+          },
+        },
+      },
     },
     select: {
       id: true,
       firstName: true,
       lastName: true,
       Attendance: {
+        where: {
+          session: {
+            sectionId: sectionId,
+          },
+        },
         select: {
           id: true,
         },
