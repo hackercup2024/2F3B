@@ -1,4 +1,5 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { checkSession } from "@/app/teacher/dashboard/action";
 import { db } from "@/db";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -25,8 +26,12 @@ export async function GET(
   req: NextApiRequest,
   { params }: { params: { id: string } },
 ) {
+
+  const session = await checkSession();
+
+  if (!session) return
   // get params id
-  const sessionId = params.id;
+  const sessionId = session.id;
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({
@@ -39,7 +44,7 @@ export async function GET(
   // find questions from db that has the sessionId
   const questions = await db.question.findMany({
     where: {
-      sessionId: parseInt(sessionId),
+      sessionId: sessionId,
     },
   });
 

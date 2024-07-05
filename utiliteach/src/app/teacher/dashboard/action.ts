@@ -63,10 +63,18 @@ export const startSession = async ({
 }: {
     sectionId: number
   }) => {
+
+  const { getUser } = getKindeServerSession();
+  const teacher = await getUser();
+  const teacherId = teacher?.id
+
+  if (!teacherId) return;
+
   return await db.session.create({
     data: {
       sectionId: sectionId,
-      date: new Date(Date.now())
+      date: new Date(Date.now()),
+      teacherId
     }
   });
 }
@@ -76,27 +84,18 @@ export const checkSession = async () => {
   const teacher = await getUser();
   const teacherId = teacher?.id
 
-  if (teacherId === undefined) return false;
+  if (teacherId === undefined) return undefined;
 
-  const session = await db.session.findMany({
-    select: {
-      id: true,
-      date: true,
-      section: true,
-    },
+  const session = await db.session.findFirst({
+    where: {
+      teacherId: teacherId,
+      isFinished: false
+    }
   });
 
-  const section = await db.section.findFirst({
-    where: {
-      teacherId
-    }
-  })
+  console.log(session?.id);
+  
 
-  const isSectionInSessions = session.some(session => session.section.id === section?.id);
-
-  console.log(session)
-  console.log(section)
-
-  console.log(isSectionInSessions);
+  return session;
   
 }

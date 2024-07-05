@@ -2,7 +2,7 @@ import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
 import { ArrowRightIcon } from "lucide-react";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { LogoutLink, getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
@@ -57,7 +57,7 @@ const Navbar = async () => {
                       <ArrowRightIcon className="ml-1.5 h-5 w-5" />
                     </Link>
                   </>                 
-                ) : null}
+                ) : <LogoutLink>log out</LogoutLink>}
               </>
             ) : (
               <>

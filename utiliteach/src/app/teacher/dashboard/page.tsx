@@ -104,7 +104,7 @@ const Dashboard = () => {
       .then(
         data => {
           console.log(data);
-          window.location.replace('/teacher/attendance');
+          // window.location.replace('/teacher/attendance');
         }
       )
   }

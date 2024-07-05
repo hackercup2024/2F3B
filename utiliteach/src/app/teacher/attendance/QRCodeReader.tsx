@@ -9,7 +9,7 @@ import QrScanner from "qr-scanner";
 import addAttendance from "./action";
 // import QrFrame from "../assets/qr-frame.svg";
 
-const QrReader = ({ sessionId }: { sessionId: number }) => {
+const QrReader = () => {
   // QR States
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
@@ -25,8 +25,7 @@ const QrReader = ({ sessionId }: { sessionId: number }) => {
     console.log(result);
     // ✅ Handle success.
     // 😎 You can do whatever you want with the scanned result.
-    setScannedResult(result?.data);
-    addAttendance({ sessionId, studentId: parseInt(scannedResult) });
+    addAttendance({ studentId: parseInt(result?.data) });
   };
 
   // Fail

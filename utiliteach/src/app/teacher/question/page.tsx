@@ -17,11 +17,13 @@ const Question = ({ params }: { params: { sessionId: number } }) => {
   useEffect(() => {
     async function initQuestions() {
       const result = await getQuestions();
+      console.log(result);
+      
       setQuestions(result);
 
       const summary_result = await fetch(`/api/qna/${params.sessionId}`);
       const summary = await summary_result.json();
-      setSummary(summary);
+      setSummary(summary.questions);
     }
     initQuestions();
   }, []);
@@ -36,11 +38,7 @@ const Question = ({ params }: { params: { sessionId: number } }) => {
         <TableBody>
           {questions?.map((question: any) => (
             <TableRow key={question.id}>
-              <TableCell>{question.email}</TableCell>
-              <TableCell>{question.firstName}</TableCell>
-              <TableCell>{question.middleName}</TableCell>
-              <TableCell>{question.lastName}</TableCell>
-              <TableCell>{question.Suffix}</TableCell>
+              <TableCell>{question.question}</TableCell>
             </TableRow>
           ))}
         </TableBody>
