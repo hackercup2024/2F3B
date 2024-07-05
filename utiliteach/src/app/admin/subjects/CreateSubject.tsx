@@ -25,20 +25,28 @@ const CreateSubject = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Subject Name"
-          value={subjectName}
-          onChange={(e) => setSubjectName(e.target.value)}
-        />
-        <Input
-          type="number"
-          placeholder="Grade Level"
-          value={gradeLevel}
-          onChange={(e) => setGradeLevel(e.target.value)}
-        />
-        <Button type="submit">Create Subject</Button>
+      <form className="flex flex-col sm:space-x-12 sm:flex-row" onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <p className="text">Subject Name</p>
+          <Input
+            type="text"
+            placeholder="Subject Name"
+            value={subjectName}
+            onChange={(e) => setSubjectName(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <p>Grade Level</p>
+          <Input
+            type="number"
+            placeholder="Grade Level"
+            value={gradeLevel}
+            onChange={(e) => setGradeLevel(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center justify-center">
+          <Button type="submit">Create Subject</Button>
+        </div>
       </form>
     </div>
   );
