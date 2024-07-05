@@ -19,6 +19,8 @@ const config = {
     },
     extend: {
       colors: {
+        eraser: "#9A0B05",
+        lapis: "#FFD230",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
