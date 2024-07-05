@@ -47,12 +47,15 @@ model Section {
   students    Student[]
   teacher     User      @relation(fields: [teacherId], references: [id])
   teacherId   String
+  subject     Subject   @relation(fields: [subjectId], references: [id])
+  subjectId   Int
 }
 
 model Subject {
-  id         Int    @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   gradeLevel Int
+  Section    Section[]
 }
 
 model Session {
