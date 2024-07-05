@@ -6,9 +6,17 @@ import { PrismaClient } from '@prisma/client'
 export const dynamic = 'force-dynamic' // defaults to auto
 
 /*
+GET
 fetch api/qna/${sessionId} to get normalized questions from db
 
 return questions lessened, empty array if no questions found with the sessionId
+*/
+
+/*
+POST
+fetch api/qna/${sessionId} and body {question: string} to add questions to db
+
+return success: true if successful, false if not
 */
 
 // Function to remove duplicates and similar questions
@@ -45,3 +53,25 @@ export async function GET(req: NextApiRequest, { params }: { params: { id: strin
 
     return Response.json({ questions: text});
 };
+
+//function to add questions to db, req body of {question: string}
+export async function POST(req: Request, { params }: { params: { id: string } }) {
+    // get params id and questions from body
+    const sessionId = params.id;
+    const data = await req.json();
+    const question = data.question;
+
+    const prisma = new PrismaClient();
+    // add question to db
+    try {
+        await prisma.question.create({
+            data: {
+                sessionId: parseInt(sessionId),
+                question: question,
+            },
+        });
+        return Response.json({ success: true });
+    } catch (error) {
+        return Response.json({ success: false });
+    }
+}
