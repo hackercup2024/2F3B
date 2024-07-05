@@ -1,5 +1,6 @@
 # Commit Conventions
-
-- feat -> ✨
-- fix -> 🔨
-- chore -> 🧹
+| name  	| emoji	|
+|-------	|---	|
+| feat  	| ✨ 	|
+| chore 	| 🧹 	|
+| fix   	| 🔨 	|
