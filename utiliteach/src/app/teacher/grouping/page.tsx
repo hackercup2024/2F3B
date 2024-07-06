@@ -61,47 +61,59 @@ const Teachers = () => {
       setRandomizedStudentGroups(groupedStudents);  
     };
 
-
-  
-
   return (
-    <div>
-    <form onSubmit={handleSubmit}>
-      <Input type="text" placeholder="Session ID" value={sessionId} onChange={(e) => setSessionId(e.target.value)}/>
-      <Button type="submit">Enter Session ID</Button>
-    </form>
-      <h1>Teacher Management</h1>
-      <Table>
-        <TableCaption>List of Students in the class</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Student Name</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {students?.map((student) => (
-            <TableRow key={student.id}>
-              <TableCell>{student.firstName} {student.lastName}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <form onSubmit={handleRandomize}>
-        <Input type="number" placeholder="Group Size" value={groupSize} onChange={(e) => setGroupSize(parseInt(e.target.value))}/>
-        <Button type="submit">Randomize</Button>
+    <div className="flex flex-grow flex-col items-center p-4">
+      <div className="flex justify-center sm:justify-start">
+          <h1 className="text-lapis font-bold text-3xl ml-1 mb-4"> Randomize Groupings</h1>
+      </div>
+      <form className="flex flex-row w-1/2 gap-x-2" onSubmit={handleSubmit}>
+        <div>
+          <p className="ml-1">Session ID</p>
+          <Input type="text" placeholder="Session ID" value={sessionId} onChange={(e) => setSessionId(e.target.value)}/>
+        </div>
+        <div className="flex mt-4 items-center justify-center">
+            <Button className="mt-1.5" type="submit">Enter Session ID</Button>
+        </div>
       </form>
-      <h1>Randomized Student Groups:</h1>
+      <form className="flex flex-row w-1/2 mt-4 gap-x-2" onSubmit={handleRandomize}>
+        <div>
+          <p>Group Size</p>
+          <Input type="number" placeholder="How many members in a group?" value={groupSize} onChange={(e) => setGroupSize(parseInt(e.target.value))}/>
+        </div>
+        <div className="flex mt-4 items-center justify-center">
+            <Button className="mt-1.5" type="submit">Randomize</Button>
+        </div>
+      </form>
+      <div className="w-full mt-4 md:w-1/3">
+        <Table>
+          <TableCaption>List of Students in the class</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-center">Student Name</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {students?.map((student) => (
+              <TableRow key={student.id}>
+                <TableCell>{student.firstName} {student.lastName}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+      
+      <h1 className="mt-4">Randomized Student Groups:</h1>
       {randomizedStudentGroups.map((group, index) => (
         <div key={index}>
-          <h2>Group {index + 1}:</h2>
+          <h2 className="text-lapis font-semibold">Group {index + 1}:</h2>
           <Table>
-            <TableCaption>List of Students in Group {index + 1}</TableCaption>
+            <TableCaption className="text-center">Members of Group {index + 1}</TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead>Student Name</TableHead>
+                <TableHead className="text-center">Student Name</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="text-center">
               {group?.map((student) => (
                 <TableRow key={student?.id}>
                   <TableCell>{student?.firstName} {student?.lastName}</TableCell>
