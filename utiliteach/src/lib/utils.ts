@@ -16,7 +16,7 @@ export const formatPrice = (price: number) => {
 };
 
 export function constructMetaData({
-  title = "CaseCobra - custom high-quality phone cases",
+  title = "UtiliTeach",
   description = "Create custom high quality phone cases in seconds",
   image = "/thumbnail.png",
   icons = "/favicon.ico",
