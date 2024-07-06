@@ -41,18 +41,31 @@ const Question = () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-lapis font-bold text-3xl text-center">Questions</TableHead>
+            <TableHead className="text-center text-2xl font-semibold">All Questions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {questions?.map((question: any) => (
             <TableRow key={question.id}>
-              <TableCell>{question.question}</TableCell>
+              <TableCell className="p-4 ">{question.question}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <p>{summary}</p>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="text-center text-2xl font-semibold">Summary</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {summary && (JSON.parse(summary)).map((question: any, index: number) => (
+            <TableRow key={index}>
+              <TableCell className="p-4 ">{question}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </>
   );
 };
