@@ -22,6 +22,7 @@ export default function RootLayout({
 
       if (!user) return notFound();
     }
+    protect();
   }, [])
   const links = [
     {link: '/admin/teachers', icon: <LucideBookUser />, label: "Teachers"},

@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { getAuthStatus } from "./actions";
 import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
 import { Loading } from "@/components/Loading";
 
 const Page = () => {
@@ -29,7 +28,11 @@ const Page = () => {
       localStorage.removeItem("configurationId");
       router.push(`/configure/preview?id=${configId}`);
     } else {
-      router.push("/teacher/dashboard");
+      if(!data.isAdmin){
+        router.push("/teacher/dashboard");
+      }else{
+        router.push("/admin/classes")
+      }
     }
   }
 

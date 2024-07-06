@@ -24,5 +24,5 @@ export const getAuthStatus = async () => {
     });
   }
 
-  return { success: true };
+  return { success: true, isAdmin: user.email === process.env.ADMIN_EMAIL };
 };

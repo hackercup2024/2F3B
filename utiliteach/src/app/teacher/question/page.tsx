@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Loading } from "@/components/Loading";
-import { getQuestions, getSummary } from "./actions";
+import { getQuestions } from "./actions";
 
 const Question = () => {
   const [questions, setQuestions] = useState<any>([]);
