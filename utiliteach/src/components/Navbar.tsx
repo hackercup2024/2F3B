@@ -69,6 +69,15 @@ const Navbar = async () => {
                       >
                         Recitation Picker 
                       </Link>
+                      <Link
+                        href="/api/terminate"
+                        className={buttonVariants({
+                          size: "sm",
+                          variant: "ghost",
+                        })}
+                      >
+                        End Sesion 
+                      </Link>
                     </div>
                     <Link
                       href="/api/auth/logout"
