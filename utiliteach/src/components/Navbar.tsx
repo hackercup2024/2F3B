@@ -92,7 +92,7 @@ const Navbar = async () => {
                 ) : 
                 <>
                   <Link
-                    href="/dashboard"
+                    href="/admin/classes"
                     className={buttonVariants({
                       size: "sm",
                       variant: "ghost",
@@ -101,7 +101,7 @@ const Navbar = async () => {
                     Classes 
                   </Link>
                   <Link
-                    href="/dashboard"
+                    href="/admin/subjects"
                     className={buttonVariants({
                       size: "sm",
                       variant: "ghost",
@@ -110,7 +110,7 @@ const Navbar = async () => {
                     Subjects
                   </Link>
                   <Link
-                    href="/dashboard"
+                    href="/admin/teachers"
                     className={buttonVariants({
                       size: "sm",
                       variant: "ghost",

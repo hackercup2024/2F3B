@@ -71,6 +71,10 @@ export default function Home() {
                     <Check className="h-5 w-5 shrink-0 text-lapis" />
                     Summarize student questions
                   </li>
+                  <li className="flex items-center gap-1.5 text-left">
+                    <Check className="h-5 w-5 shrink-0 text-lapis" />
+                    Automate student groupings
+                  </li>
                 </div>
               </ul>
             </div>
