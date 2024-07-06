@@ -3,11 +3,13 @@ import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
 import { ArrowRightIcon } from "lucide-react";
 import { LogoutLink, getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { checkSession } from "@/app/teacher/dashboard/action";
 
 const Navbar = async () => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const isAdmin = user?.email === process.env.ADMIN_EMAIL;
+  const session = await checkSession();
   return (
     <nav
       className="sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75
@@ -29,7 +31,7 @@ const Navbar = async () => {
                 {!isAdmin ? (
                   <>
                     <Link
-                      href="/dashboard"
+                      href="/teacher/dashboard"
                       className={buttonVariants({
                         size: "sm",
                         variant: "ghost",
@@ -37,9 +39,9 @@ const Navbar = async () => {
                     >
                       Dashboard 
                     </Link>
-                    <div>
+                    <div className={!session ? 'hidden' : ''}>
                       <Link
-                        href="/dashboard"
+                        href="/teacher/attendance"
                         className={buttonVariants({
                           size: "sm",
                           variant: "ghost",
@@ -48,7 +50,7 @@ const Navbar = async () => {
                         Attendance 
                       </Link>
                       <Link
-                        href="/dashboard"
+                        href="/teacher/grouping"
                         className={buttonVariants({
                           size: "sm",
                           variant: "ghost",
@@ -57,7 +59,7 @@ const Navbar = async () => {
                         Group Randomizer 
                       </Link>
                       <Link
-                        href="/dashboard"
+                        href="/teacher/recitation"
                         className={buttonVariants({
                           size: "sm",
                           variant: "ghost",
