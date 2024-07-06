@@ -22,7 +22,8 @@ const Teachers = () => {
     const [attendances, setAttendances] = useState<Attendance[]>([]);
     const [students, setStudents] = useState<Student[]>([]);
     const [sessionId, setSessionId] = useState("");
-    const [randomizedStudent, setRandomizedStudent] = useState<Student | null>(null);
+    const [groupSize, setGroupSize] = useState(1);
+    const [randomizedStudentGroups, setRandomizedStudentGroups] = useState<Student[][]>([]);
     
     // fetch students by sectionId
     const handleSubmit = async (e: React.FormEvent) => {
@@ -30,15 +31,11 @@ const Teachers = () => {
       try {
         const attendances = await getAttendanceBySession({ sessionId: parseInt(sessionId) });
         setAttendances(attendances);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-      }
-      // fetch students by studentId in list of attendances
-      try {
         const students = await Promise.all(attendances.map(async (attendance) => {
           const student = await getStudentByStudentId({ studentId: attendance.studentId });
           return student[0];
         }));
+        // console.log(students);
         setStudents(students);
       } catch (error) {
         console.error("Error fetching students:", error);
@@ -47,12 +44,21 @@ const Teachers = () => {
 
     const handleRandomize = async (e: React.FormEvent) => {
       e.preventDefault();
-      try {
-        const randomIndex = Math.floor(Math.random() * students.length);
-        setRandomizedStudent(students[randomIndex]);
-      } catch (error) {
-        console.error("Error randomizing students:", error);
+      const shuffledStudents = [...students];
+      
+      // Shuffle the students array
+      for (let i = shuffledStudents.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledStudents[i], shuffledStudents[j]] = [shuffledStudents[j], shuffledStudents[i]];
       }
+
+      // Split students into groups
+      const groupedStudents: Student[][] = [];
+      for (let i = 0; i < shuffledStudents.length; i += groupSize) {
+        groupedStudents.push(shuffledStudents.slice(i, i + groupSize));
+      }
+
+      setRandomizedStudentGroups(groupedStudents);  
     };
 
 
@@ -81,10 +87,30 @@ const Teachers = () => {
         </TableBody>
       </Table>
       <form onSubmit={handleRandomize}>
+        <Input type="number" placeholder="Group Size" value={groupSize} onChange={(e) => setGroupSize(parseInt(e.target.value))}/>
         <Button type="submit">Randomize</Button>
       </form>
-      <h1>Randomized Student: {randomizedStudent?.firstName} {randomizedStudent?.lastName}</h1>
-      
+      <h1>Randomized Student Groups:</h1>
+      {randomizedStudentGroups.map((group, index) => (
+        <div key={index}>
+          <h2>Group {index + 1}:</h2>
+          <Table>
+            <TableCaption>List of Students in Group {index + 1}</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Student Name</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {group?.map((student) => (
+                <TableRow key={student?.id}>
+                  <TableCell>{student?.firstName} {student?.lastName}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      ))}
     </div>
   );
 };
