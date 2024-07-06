@@ -15,19 +15,5 @@ export const getQuestions = async () => {
     where: {
       sessionId: session?.id,
     },
-    select: {
-      question: true,
-    },
   });
-};
-
-export const getSummary = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  const session = await db.session.findFirst({
-    where: {
-      teacherId: user?.id,
-    },
-  });
-  return await fetch(`/api/qna/${session?.id}`);
 };
