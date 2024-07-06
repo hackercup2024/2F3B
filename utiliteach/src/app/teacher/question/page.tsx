@@ -59,7 +59,7 @@ const Question = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {summary && (JSON.parse(summary)).map((question: any, index: number) => (
+          {summary !== "" && (JSON.parse(summary)).map((question: any, index: number) => (
             <TableRow key={index}>
               <TableCell className="p-4 ">{question}</TableCell>
             </TableRow>
