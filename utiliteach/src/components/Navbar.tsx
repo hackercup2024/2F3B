@@ -30,15 +30,17 @@ const Navbar = async () => {
               <>
                 {!isAdmin ? (
                   <>
-                    <Link
-                      href="/teacher/dashboard"
-                      className={buttonVariants({
-                        size: "sm",
-                        variant: "ghost",
-                      })}
-                    >
-                      Dashboard 
-                    </Link>
+                    <div className={session ? 'hidden' : ''}>
+                      <Link
+                        href="/teacher/dashboard"
+                        className={buttonVariants({
+                          size: "sm",
+                          variant: "ghost",
+                        })}
+                      >
+                        Dashboard 
+                      </Link>
+                    </div>
                     <div className={!session ? 'hidden' : ''}>
                       <Link
                         href="/teacher/attendance"
