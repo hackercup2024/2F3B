@@ -66,7 +66,7 @@ const Teachers = () => {
       <div className="flex justify-center sm:justify-start">
           <h1 className="text-lapis font-bold text-3xl ml-1 mb-4"> Randomize Groupings</h1>
       </div>
-      <form className="flex flex-row w-1/2 gap-x-2" onSubmit={handleSubmit}>
+      <form className="flex flex-col sm:flex-row w-1/2 gap-x-2" onSubmit={handleSubmit}>
         <div>
           <p className="ml-1">Session ID</p>
           <Input type="text" placeholder="Session ID" value={sessionId} onChange={(e) => setSessionId(e.target.value)}/>
@@ -75,7 +75,7 @@ const Teachers = () => {
             <Button className="mt-1.5" type="submit">Enter Session ID</Button>
         </div>
       </form>
-      <form className="flex flex-row w-1/2 mt-4 gap-x-2" onSubmit={handleRandomize}>
+      <form className="flex flex-col sm:flex-row w-1/2 mt-4 gap-x-2" onSubmit={handleRandomize}>
         <div>
           <p>Group Size</p>
           <Input type="number" placeholder="How many members in a group?" value={groupSize} onChange={(e) => setGroupSize(parseInt(e.target.value))}/>
@@ -113,10 +113,10 @@ const Teachers = () => {
                 <TableHead className="text-center">Student Name</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="text-center">
+            <TableBody>
               {group?.map((student) => (
                 <TableRow key={student?.id}>
-                  <TableCell>{student?.firstName} {student?.lastName}</TableCell>
+                  <TableCell className="text-center">{student?.firstName} {student?.lastName}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
