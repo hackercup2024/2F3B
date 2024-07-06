@@ -60,50 +60,75 @@ const CreateStudent = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Middle Name"
-          value={middleName}
-          onChange={(e) => setMiddleName(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Suffix"
-          value={Suffix}
-          onChange={(e) => setSuffix(e.target.value)}
-        />
-        <Input
-          type="number"
-          placeholder="Grade Level"
-          value={gradeLevel}
-          onChange={(e) => setGradeLevel(parseInt(e.target.value))}
-        />
-        <Input
-          type="text"
-          placeholder="LRN"
-          value={lrn}
-          onChange={(e) => setLrn(e.target.value)}
-        />
-        <Select defaultValue={sectionId} onChange={(e) => setSectionId(parseInt(e.target.value))}>
-          {sections?.map((section) => (
-            <option key={section.id} value={section.id}>
-              {section.sectionName} {section.id}
-            </option>
-          ))}</Select>
-
-        <Button type="submit">Create Student</Button>
+        <div className="flex flex-row gap-x-2">
+          <div className="space-y-2">
+            <div>
+              <p className="ml-1">First Name</p>
+              <Input
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div>
+              <p className="ml-1">Middle Name</p>
+              <Input
+                type="text"
+                placeholder="Middle Name"
+                value={middleName}
+                onChange={(e) => setMiddleName(e.target.value)}
+              />
+            </div>
+            <div>
+              <p className="ml-1">Last Name</p>
+              <Input
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div>
+              <p className="ml-1">Suffix </p>
+              <Input
+                type="text"
+                placeholder="Suffix"
+                value={Suffix}
+                onChange={(e) => setSuffix(e.target.value)}
+              />
+            </div>
+            <div>
+              <p className="ml-1">Grade Level</p>
+              <Input
+                type="number"
+                placeholder="Grade Level"
+                value={gradeLevel}
+                onChange={(e) => setGradeLevel(parseInt(e.target.value))}
+              />
+            </div>
+            <div>
+              <p>LRN</p>
+              <Input
+                type="text"
+                placeholder="LRN"
+                value={lrn}
+                onChange={(e) => setLrn(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="flex mt-4 ml-3 justify-between">
+          <Select className="w-1/3" defaultValue={sectionId} onChange={(e) => setSectionId(parseInt(e.target.value))}>
+            {sections?.map((section) => (
+              <option key={section.id} value={section.id}>
+                {section.sectionName} {section.id}
+              </option>
+            ))}</Select>
+          <Button className="mr-3 w-1/3" type="submit">Create Student</Button>
+        </div>
       </form>
     </div>
   );

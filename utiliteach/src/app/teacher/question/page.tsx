@@ -9,13 +9,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Loading } from "@/components/Loading";
 import { getQuestions } from "./actions";
 
 const Question = () => {
   const [questions, setQuestions] = useState<any>([]);
   const [summary, setSummary] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     async function initQuestions() {
+      setIsLoading(true);
       const result = await getQuestions();
       console.log(result);
       
@@ -24,15 +27,21 @@ const Question = () => {
       const summary_result = await fetch('/api/qna');
       const summary = await summary_result.json();
       setSummary(summary.questions);
+      setIsLoading(false)
     }
     initQuestions();
   }, []);
+
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+
   return (
     <>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Questions</TableHead>
+            <TableHead className="text-lapis font-bold text-3xl text-center">Questions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

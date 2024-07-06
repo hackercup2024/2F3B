@@ -30,38 +30,59 @@ const CreateTeacher = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Middle Name"
-          value={middleName}
-          onChange={(e) => setMiddleName(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Suffix"
-          value={Suffix}
-          onChange={(e) => setSuffix(e.target.value)}
-        />
-        <Button type="submit">Create Teacher</Button>
+      <form className="flex flex-col sm:space-x-12 sm:flex-row" onSubmit={handleSubmit}>
+        <div>
+          <div className="mb-4">
+            <p className="ml-1">First Name</p>
+            <Input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <p className="ml-1">Middle Name</p>
+            <Input
+              type="text"
+              placeholder="Middle Name"
+              value={middleName}
+              onChange={(e) => setMiddleName(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <p>Last Name</p>
+            <Input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+        </div>
+        <div>
+          <div className="mb-4">
+            <p className="ml-1">Email</p>
+            <Input
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <p>Suffix</p>
+            <Input
+              type="text"
+              placeholder="Suffix"
+              value={Suffix}
+              onChange={(e) => setSuffix(e.target.value)}
+            />
+          </div>
+          <div className="flex items-center justify-center sm:mt-10">
+            <Button type="submit">Create Teacher</Button>
+          </div>
+        </div>
       </form>
     </div>
   );

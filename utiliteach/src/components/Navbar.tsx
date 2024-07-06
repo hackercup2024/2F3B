@@ -26,7 +26,7 @@ const Navbar = async () => {
           <div className="flex h-full items-center space-x-2">
             {user ? (
               <>
-                {isAdmin ? (
+                {!isAdmin ? (
                   <>
                     <Link
                       href="/dashboard"
@@ -37,6 +37,35 @@ const Navbar = async () => {
                     >
                       Dashboard 
                     </Link>
+                    <div>
+                      <Link
+                        href="/dashboard"
+                        className={buttonVariants({
+                          size: "sm",
+                          variant: "ghost",
+                        })}
+                      >
+                        Attendance 
+                      </Link>
+                      <Link
+                        href="/dashboard"
+                        className={buttonVariants({
+                          size: "sm",
+                          variant: "ghost",
+                        })}
+                      >
+                        Group Randomizer 
+                      </Link>
+                      <Link
+                        href="/dashboard"
+                        className={buttonVariants({
+                          size: "sm",
+                          variant: "ghost",
+                        })}
+                      >
+                        Recitation Picker 
+                      </Link>
+                    </div>
                     <Link
                       href="/api/auth/logout"
                       className={buttonVariants({
@@ -46,18 +75,42 @@ const Navbar = async () => {
                     >
                       Sign out
                     </Link>
-                    <Link
-                      href="/configure/upload"
-                      className={buttonVariants({
-                        size: "sm",
-                        className: "hidden items-centert5 sm:flex",
-                      })}
-                    >
-                      Start Class
-                      <ArrowRightIcon className="ml-1.5 h-5 w-5" />
-                    </Link>
                   </>                 
-                ) : <LogoutLink>log out</LogoutLink>}
+                ) : 
+                <>
+                  <Link
+                    href="/dashboard"
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: "ghost",
+                    })}
+                  >
+                    Classes 
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: "ghost",
+                    })}
+                  >
+                    Subjects
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: "ghost",
+                    })}
+                  >
+                    Teachers 
+                  </Link>
+                  <LogoutLink className={buttonVariants({
+                      size: "sm",
+                      variant: "ghost",
+                    })}>Log Out</LogoutLink>
+                </>
+                }
               </>
             ) : (
               <>

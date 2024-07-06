@@ -18,6 +18,7 @@ import { getStudents } from "./action";
 import { Student } from "@prisma/client";
 import { getStudentSections } from "./action";
 import { StudentSection } from "@prisma/client";
+import { Loading } from "@/components/Loading";
 
 const Page = () => {
     const {
@@ -46,7 +47,7 @@ const Page = () => {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (isError) {
@@ -54,49 +55,62 @@ const Page = () => {
     }
 
     return (
-        <div>
-            <h1>Student Management</h1>
-            <CreateStudent />
-            <h1>Section Management</h1>
-            <CreateSection />
-            <Table>
-                <TableCaption>A list of sections.</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Section Name</TableHead>
-                        <TableHead>Teacher Id</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {sections?.map((section: Section) => (
-                        <TableRow key={section.id}>
-                            <TableCell>{section.sectionName}</TableCell>
-                            <TableCell>{section.teacherId}</TableCell>
+        <div className="flex flex-grow flex-col items-center p-4">
+            <div className="flex flex-row max-sm:flex-col gap-6">
+                <div>
+                    <div className="flex justify-center sm:justify-start">
+                        <h1 className="text-lapis font-bold text-3xl mb-4">Student Management</h1>
+                    </div>
+                    <CreateStudent />
+                </div>
+                <div>
+                    <div className="flex justify-center sm:justify-start">
+                        <h1 className="text-lapis font-bold text-3xl mb-4">Section Management</h1>
+                    </div>
+                    <CreateSection />
+                </div>
+            </div>
+            <div className="w-full md:w-3/4">
+                <Table>
+                    <TableCaption>A list of sections.</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="text-center">Section Name</TableHead>
+                            <TableHead className="text-center">Teacher Id</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                        {sections?.map((section: Section) => (
+                            <TableRow key={section.id}>
+                                <TableCell className="text-center">{section.sectionName}</TableCell>
+                                <TableCell className="text-center">{section.teacherId}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
 
-            <Table>
-                <TableCaption>A list of students.</TableCaption>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Section/s</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {students?.map((student: Student) => (
-                        <TableRow key={student.id}>
-                            <TableCell>{student.firstName} {student.lastName}</TableCell>
-                            <TableCell>{studentSections?.map((section: StudentSection) => {
-                                const sectionName = sections?.find(s => s.id === section.sectionId)?.sectionName;
-                                return sectionName || 'Unknown';
-                            })}</TableCell>
+                <Table>
+                    <TableCaption>A list of students.</TableCaption>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="text-center">Name</TableHead>
+                            <TableHead className="text-center">Section/s</TableHead>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                    </TableHeader>
+                    <TableBody>
+                        {students?.map((student: Student) => (
+                            <TableRow key={student.id}>
+                                <TableCell className="text-center">{student.firstName} {student.lastName}</TableCell>
+                                <TableCell className="text-center">{studentSections?.map((section: StudentSection) => {
+                                    const sectionName = sections?.find(s => s.id === section.sectionId)?.sectionName;
+                                    return sectionName || 'Unknown';
+                                })}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </div>
+            <div className="max-sm:mb-24"></div>
         </div>
     );
 };
