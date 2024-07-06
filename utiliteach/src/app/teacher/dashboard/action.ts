@@ -98,7 +98,6 @@ export const checkSession = async () => {
   });
 
   console.log(session?.id);
-  
 
   return session;
   
