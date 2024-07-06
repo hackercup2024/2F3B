@@ -41,7 +41,7 @@ const Navbar = async () => {
                         Dashboard 
                       </Link>
                     </div>
-                    <div className={!session ? 'hidden' : ''}>
+                    <div className={`max-sm:hidden ${!session ? 'hidden' : ''}`}>
                       <Link
                         href="/teacher/attendance"
                         className={buttonVariants({

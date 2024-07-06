@@ -32,6 +32,8 @@ export async function GET(
   if (!session) return
   // get params id
   const sessionId = session.id;
+  console.log("session:" + sessionId);
+  
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({

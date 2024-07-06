@@ -21,11 +21,19 @@ const Question = () => {
       setIsLoading(true);
       const result = await getQuestions();
       console.log(result);
+
+      if (!result) return;
       
       setQuestions(result);
 
       const summary_result = await fetch('/api/qna');
+      
       const summary = await summary_result.json();
+
+      console.log(summary);
+      
+      if (summary.questions.length === 0) return;
+
       setSummary(summary.questions);
       setIsLoading(false)
     }
@@ -45,11 +53,17 @@ const Question = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {questions?.map((question: any) => (
+          { questions.length !== 0 ? (
+            questions.map((question: any) => (
             <TableRow key={question.id}>
               <TableCell className="p-4 ">{question.question}</TableCell>
             </TableRow>
-          ))}
+          ))) : (
+            <TableRow>
+              <TableCell className="p-4 text-center">No questions Found</TableCell>
+            </TableRow>
+          )
+          }
         </TableBody>
       </Table>
       <Table>
@@ -59,11 +73,17 @@ const Question = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {summary !== "" && (JSON.parse(summary)).map((question: any, index: number) => (
-            <TableRow key={index}>
-              <TableCell className="p-4 ">{question}</TableCell>
-            </TableRow>
-          ))}
+          {
+            summary !== "" ? (JSON.parse(summary)).map((question: any, index: number) => (
+              <TableRow key={index}>
+                <TableCell className="p-4 ">{question}</TableCell>
+              </TableRow>
+            )) : (
+              <TableRow>
+                <TableCell className="p-4 text-center">No questions Found</TableCell>
+              </TableRow>
+            )
+          }
         </TableBody>
       </Table>
     </>
