@@ -70,6 +70,10 @@ export const startSession = async ({
 
   if (!teacherId) return;
 
+  const existingSession = await checkSession();
+
+  if (existingSession) return;
+
   return await db.session.create({
     data: {
       sectionId: sectionId,
