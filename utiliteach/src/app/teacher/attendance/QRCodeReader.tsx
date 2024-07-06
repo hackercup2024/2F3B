@@ -7,10 +7,12 @@ import { useEffect, useRef, useState } from "react";
 // Qr Scanner
 import QrScanner from "qr-scanner";
 import addAttendance from "./action";
+import { useToast } from "@/components/ui/use-toast";
 // import QrFrame from "../assets/qr-frame.svg";
 
 const QrReader = () => {
   // QR States
+  const { toast } = useToast()
   const scanner = useRef<QrScanner>();
   const videoEl = useRef<HTMLVideoElement>(null);
   const qrBoxEl = useRef<HTMLDivElement>(null);
@@ -23,6 +25,9 @@ const QrReader = () => {
   const onScanSuccess = (result: QrScanner.ScanResult) => {
     // 🖨 Print the "result" to browser console.
     console.log(result);
+    toast({
+      title: 'Scanned QR Code!',
+    })
     // ✅ Handle success.
     // 😎 You can do whatever you want with the scanned result.
     addAttendance({ studentId: parseInt(result?.data) });
