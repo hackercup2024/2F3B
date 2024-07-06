@@ -30,7 +30,7 @@ const Dashboard = () => {
   const [subjectLoading, setSubjectLoading] = useState<boolean>(false);
   const [sectionLoading, setSectionLoading] = useState<boolean>(false);
 
-  let attendanceTally: { studentId: number; firstName: string; lastName: string; totalAttendance: number; }[] = []
+  const [attendanceTally, setAttendanceTally] = useState<{ studentId: number; firstName: string; lastName: string; totalAttendance: number; }[]>([])
 
   const attendanceTallySample = [
     { studentId: 1, firstName: "John", lastName: "Doe", totalAttendance: 15 },
@@ -91,7 +91,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchAttendanceTally = async () => {
-      attendanceTally = await getAttendanceTally({ sectionId: selectedSection })
+      await getAttendanceTally({ sectionId: selectedSection })
+        .then(
+          data => {
+            setAttendanceTally(data)
+          }
+        )
     }
 
     if (selectedSection === -1) return;
@@ -151,7 +156,7 @@ const Dashboard = () => {
           </TableHeader>
           <TableBody>
             {
-              selectedSection !== -1 && attendanceTallySample.map((item, index) => (
+              selectedSection !== -1 && attendanceTally.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell className="md:hidden">{ item.lastName + ', ' + item.firstName }</TableCell>
                   <TableCell className="max-md:hidden">{ item.lastName }</TableCell>

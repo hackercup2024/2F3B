@@ -12,7 +12,7 @@ export const getAttendanceTally = async ({
     where: {
       Attendance: {
         some: {
-          session: {
+          Session: {
             sectionId: sectionId,
           },
         },
@@ -24,7 +24,7 @@ export const getAttendanceTally = async ({
       lastName: true,
       Attendance: {
         where: {
-          session: {
+          Session: {
             sectionId: sectionId,
           },
         },
@@ -42,6 +42,8 @@ export const getAttendanceTally = async ({
     lastName: student.lastName,
     totalAttendance: student.Attendance.length,
   }));
+
+  console.log(attendancePerStudent);
 
   return attendancePerStudent;
 };
@@ -81,6 +83,17 @@ export const startSession = async ({
       teacherId
     }
   });
+}
+
+export const endSession = async () => {
+  const session = await checkSession();
+
+  if (!session) return;
+
+  return await db.session.update({
+    where: { id: session.id},
+    data: { isFinished: true }
+  })
 }
 
 export const checkSession = async () => {

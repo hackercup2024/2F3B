@@ -5,8 +5,9 @@ import QrReader from "./QRCodeReader";
 const Attendance = () => {
   return (
     <>
-      Attendance
-      <QrReader />
+      <div className="flex flex-grow justify-center items-center">
+        <QrReader />
+      </div>
     </>
   );
 };
